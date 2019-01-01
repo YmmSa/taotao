@@ -1,5 +1,7 @@
 *.class
 
+.gitignore
+
 #package files
 
 *.war
