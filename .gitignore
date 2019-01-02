@@ -1,6 +1,6 @@
 *.class
 
-.gitignore
+*.gitignore
 
 #package files
 
