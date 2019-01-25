@@ -16,6 +16,10 @@
 
     <!-- jar包的依赖 -->
     <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
         <!-- 时间操作组件 -->
         <dependency>
             <groupId>joda-time</groupId>

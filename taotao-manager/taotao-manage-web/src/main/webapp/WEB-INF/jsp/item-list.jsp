@@ -60,7 +60,7 @@
         			$("#itemeEditForm").form("load",data);
         			
         			// 加载商品描述
-        			$.getJSON('/rest/item/query/item/desc/'+data.id,function(_data){
+        			$.getJSON('/item/'+data.id,function(_data){
         				if(_data.status == 200){
         					//UM.getEditor('itemeEditDescEditor').setContent(_data.data.itemDesc, false);
         					itemEditEditor.html(_data.data.itemDesc);

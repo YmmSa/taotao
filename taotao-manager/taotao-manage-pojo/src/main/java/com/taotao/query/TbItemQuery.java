@@ -13,9 +13,7 @@ import java.util.Date;
  * @Date: 2019/1/11 21:04
  * @Description:
  */
-public class TbItemQuery extends BaseQuery<TbItemExample.Criteria> {
-
-    private Long id;
+public class TbItemQuery extends BaseQuery<TbItemExample> {
 
     private String title;
 
@@ -32,18 +30,6 @@ public class TbItemQuery extends BaseQuery<TbItemExample.Criteria> {
     private Long cid;
 
     private Byte status;
-
-    private Date created;
-
-    private Date updated;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return title;
@@ -109,41 +95,38 @@ public class TbItemQuery extends BaseQuery<TbItemExample.Criteria> {
         this.status = status;
     }
 
-    public Date getCreated() {
-        return created;
-    }
-
-    public void setCreated(Date created) {
-        this.created = created;
-    }
-
-    public Date getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(Date updated) {
-        this.updated = updated;
-    }
-
     @Override
-    public void setQueryCondition(TbItemExample.Criteria criteria) {
-        if(this.id != null)
-            criteria.andIdEqualTo(this.id);
-        if(this.title != null && this.title != "")
+    public void setQueryCondition(TbItemExample example) {
+        TbItemExample.Criteria criteria = example.createCriteria();
+        if(this.getId() != null) {
+            criteria.andIdEqualTo(this.getId());
+        }
+        if(this.title != null && this.title != "") {
             criteria.andTitleEqualTo(this.title);
-        if(this.sellPoint != null && this.sellPoint != "")
+        }
+        if(this.sellPoint != null && this.sellPoint != "") {
             criteria.andSellPointEqualTo(this.sellPoint);
-        if(this.price != null)
+        }
+        if(this.price != null) {
             criteria.andPriceEqualTo(this.price);
-        if(this.num != null)
+        }
+        if(this.num != null) {
             criteria.andNumEqualTo(this.num);
-        if(this.barcode != null && this.barcode != "")
+        }
+        if(this.barcode != null && this.barcode != "") {
             criteria.andBarcodeEqualTo(this.barcode);
-        if(this.image != null && this.image != "")
+        }
+        if(this.image != null && this.image != "") {
             criteria.andImageEqualTo(this.image);
-        if(this.created != null)
-            criteria.andCreatedEqualTo(this.created);
-        if(this.updated != null)
-            criteria.andUpdatedEqualTo(this.updated);
+        }
+        if(this.getCreated() != null) {
+            criteria.andCreatedEqualTo(this.getCreated());
+        }
+        if(this.getUpdated() != null) {
+            criteria.andUpdatedEqualTo(this.getUpdated());
+        }
+        if(StringUtils.isNotBlank(this.getOrderField())){
+            example.setOrderByClause(this.getOrderField());
+        }
     }
 }

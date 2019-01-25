@@ -1,6 +1,7 @@
 package com.taotao.controller;
 
 import com.taotao.common.pojo.PageResult;
+import com.taotao.common.utils.TaotaoResult;
 import com.taotao.pojo.TbItem;
 import com.taotao.query.TbItemQuery;
 import com.taotao.service.TbItemService;
@@ -14,21 +15,44 @@ import org.springframework.web.bind.annotation.*;
  * @Description:
  */
 @Controller
+@RequestMapping("/item")
 public class TbItemController {
     @Autowired
     TbItemService itemService;
 
-    @RequestMapping("/item/{itemId}")
+    @RequestMapping("/{itemId}")
     @ResponseBody
-    public TbItem getItemById(@PathVariable Long itemId){
-        return itemService.getTbItemById(itemId);
+    public TbItem getItemById( Long itemId){
+        return itemService.selectByPrimaryKey(itemId);
     }
 
-    @RequestMapping(value = "/item/list", method = RequestMethod.POST)
+    @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
     //EasyUIDataGrid传的参数是用?&跟在url后的，@RequestBody是用来处理json字符串的，不能加
     public PageResult<TbItem> getItemById(TbItemQuery query){
         return itemService.findPage(query);
     }
+
+    /**
+     * 新增商品
+     * @param item
+     * @return
+     */
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    @ResponseBody
+    public TaotaoResult save(TbItem item){
+        return itemService.createTbItem(item);
+    }
+
+//    /**
+//     * 修改商品
+//     * @param item
+//     * @return
+//     */
+//    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+//    @ResponseBody
+//    public TaotaoResult edit(TbItem item){
+//        return "item-edit";
+//    }
 
 }

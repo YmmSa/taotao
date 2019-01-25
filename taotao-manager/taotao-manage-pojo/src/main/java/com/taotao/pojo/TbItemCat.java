@@ -1,9 +1,10 @@
 package com.taotao.pojo;
 
+import com.taotao.common.pojo.BasePojo;
+
 import java.util.Date;
 
-public class TbItemCat {
-    private Long id;
+public class TbItemCat extends BasePojo {
 
     private Long parentId;
 
@@ -14,18 +15,6 @@ public class TbItemCat {
     private Integer sortOrder;
 
     private Boolean isParent;
-
-    private Date created;
-
-    private Date updated;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Long getParentId() {
         return parentId;
@@ -67,19 +56,4 @@ public class TbItemCat {
         this.isParent = isParent;
     }
 
-    public Date getCreated() {
-        return created;
-    }
-
-    public void setCreated(Date created) {
-        this.created = created;
-    }
-
-    public Date getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(Date updated) {
-        this.updated = updated;
-    }
 }
