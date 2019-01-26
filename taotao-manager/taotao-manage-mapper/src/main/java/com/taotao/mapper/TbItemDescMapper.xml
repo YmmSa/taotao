@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.taotao.mapper.TbItemDescMapper" >
   <resultMap id="BaseResultMap" type="com.taotao.pojo.TbItemDesc" >
-    <id column="item_id" property="itemId" jdbcType="BIGINT" />
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="item_id" property="itemId" jdbcType="BIGINT" />
     <result column="created" property="created" jdbcType="TIMESTAMP" />
     <result column="updated" property="updated" jdbcType="TIMESTAMP" />
   </resultMap>
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    item_id, created, updated
+    id, item_id, created, updated
   </sql>
   <sql id="Blob_Column_List" >
     item_desc
@@ -109,11 +110,11 @@
     ,
     <include refid="Blob_Column_List" />
     from tb_item_desc
-    where item_id = #{itemId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from tb_item_desc
-    where item_id = #{itemId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
   </delete>
   <delete id="deleteByExample" parameterType="com.taotao.pojo.TbItemDescExample" >
     delete from tb_item_desc
@@ -121,15 +122,18 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.taotao.pojo.TbItemDesc" >
-    insert into tb_item_desc (item_id, created, updated, 
-      item_desc)
-    values (#{itemId,jdbcType=BIGINT}, #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP}, 
-      #{itemDesc,jdbcType=LONGVARCHAR})
+  <insert id="insert" parameterType="com.taotao.pojo.TbItemDesc" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    insert into tb_item_desc (id, item_id, created, 
+      updated, item_desc)
+    values (#{id,jdbcType=BIGINT}, #{itemId,jdbcType=BIGINT}, #{created,jdbcType=TIMESTAMP}, 
+      #{updated,jdbcType=TIMESTAMP}, #{itemDesc,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.taotao.pojo.TbItemDesc" >
+  <insert id="insertSelective" parameterType="com.taotao.pojo.TbItemDesc" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
     insert into tb_item_desc
     <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
       <if test="itemId != null" >
         item_id,
       </if>
@@ -144,6 +148,9 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
       <if test="itemId != null" >
         #{itemId,jdbcType=BIGINT},
       </if>
@@ -167,6 +174,9 @@
   <update id="updateByExampleSelective" parameterType="map" >
     update tb_item_desc
     <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
       <if test="record.itemId != null" >
         item_id = #{record.itemId,jdbcType=BIGINT},
       </if>
@@ -186,7 +196,8 @@
   </update>
   <update id="updateByExampleWithBLOBs" parameterType="map" >
     update tb_item_desc
-    set item_id = #{record.itemId,jdbcType=BIGINT},
+    set id = #{record.id,jdbcType=BIGINT},
+      item_id = #{record.itemId,jdbcType=BIGINT},
       created = #{record.created,jdbcType=TIMESTAMP},
       updated = #{record.updated,jdbcType=TIMESTAMP},
       item_desc = #{record.itemDesc,jdbcType=LONGVARCHAR}
@@ -196,7 +207,8 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update tb_item_desc
-    set item_id = #{record.itemId,jdbcType=BIGINT},
+    set id = #{record.id,jdbcType=BIGINT},
+      item_id = #{record.itemId,jdbcType=BIGINT},
       created = #{record.created,jdbcType=TIMESTAMP},
       updated = #{record.updated,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
@@ -206,6 +218,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.taotao.pojo.TbItemDesc" >
     update tb_item_desc
     <set >
+      <if test="itemId != null" >
+        item_id = #{itemId,jdbcType=BIGINT},
+      </if>
       <if test="created != null" >
         created = #{created,jdbcType=TIMESTAMP},
       </if>
@@ -216,19 +231,21 @@
         item_desc = #{itemDesc,jdbcType=LONGVARCHAR},
       </if>
     </set>
-    where item_id = #{itemId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.taotao.pojo.TbItemDesc" >
     update tb_item_desc
-    set created = #{created,jdbcType=TIMESTAMP},
+    set item_id = #{itemId,jdbcType=BIGINT},
+      created = #{created,jdbcType=TIMESTAMP},
       updated = #{updated,jdbcType=TIMESTAMP},
       item_desc = #{itemDesc,jdbcType=LONGVARCHAR}
-    where item_id = #{itemId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.taotao.pojo.TbItemDesc" >
     update tb_item_desc
-    set created = #{created,jdbcType=TIMESTAMP},
+    set item_id = #{itemId,jdbcType=BIGINT},
+      created = #{created,jdbcType=TIMESTAMP},
       updated = #{updated,jdbcType=TIMESTAMP}
-    where item_id = #{itemId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

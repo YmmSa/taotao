@@ -1,9 +1,12 @@
 package com.taotao.pojo;
 
+import com.taotao.common.pojo.BasePojo;
+
 import java.util.Date;
 
-public class TbOrderShipping {
-    private String orderId;
+public class TbOrderShipping extends BasePojo {
+
+    private Long orderId;
 
     private String receiverName;
 
@@ -21,16 +24,12 @@ public class TbOrderShipping {
 
     private String receiverZip;
 
-    private Date created;
-
-    private Date updated;
-
-    public String getOrderId() {
+    public Long getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId == null ? null : orderId.trim();
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
 
     public String getReceiverName() {
@@ -95,21 +94,5 @@ public class TbOrderShipping {
 
     public void setReceiverZip(String receiverZip) {
         this.receiverZip = receiverZip == null ? null : receiverZip.trim();
-    }
-
-    public Date getCreated() {
-        return created;
-    }
-
-    public void setCreated(Date created) {
-        this.created = created;
-    }
-
-    public Date getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(Date updated) {
-        this.updated = updated;
     }
 }

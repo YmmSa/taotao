@@ -122,13 +122,13 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.taotao.pojo.TbItemParam" >
+  <insert id="insert" parameterType="com.taotao.pojo.TbItemParam" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
     insert into tb_item_param (id, item_cat_id, created, 
       updated, param_data)
     values (#{id,jdbcType=BIGINT}, #{itemCatId,jdbcType=BIGINT}, #{created,jdbcType=TIMESTAMP}, 
       #{updated,jdbcType=TIMESTAMP}, #{paramData,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.taotao.pojo.TbItemParam" >
+  <insert id="insertSelective" parameterType="com.taotao.pojo.TbItemParam" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
     insert into tb_item_param
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

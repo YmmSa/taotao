@@ -46,17 +46,19 @@ public class BaseServiceImpl<M extends BaseMapper<T>, T extends BasePojo> implem
     }
 
     @Override
-    public int insert(T record) {
+    public Long insert(T record) {
         setCreatedTime(record);
         setUpdatedDate(record);
-        return mapper.insert(record);
+        mapper.insert(record);
+        return record.getId();
     }
 
     @Override
-    public int insertSelective(T record) {
+    public Long insertSelective(T record) {
         setCreatedTime(record);
         setUpdatedDate(record);
-        return mapper.insertSelective(record);
+        mapper.insertSelective(record);
+        return record.getId();
     }
 
     @Override

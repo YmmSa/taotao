@@ -1,11 +1,14 @@
 package com.taotao.pojo;
 
-public class TbOrderItem {
-    private String id;
+import com.taotao.common.pojo.BasePojo;
 
-    private String itemId;
+import java.util.Date;
 
-    private String orderId;
+public class TbOrderItem extends BasePojo {
+
+    private Long itemId;
+
+    private Long orderId;
 
     private Integer num;
 
@@ -17,28 +20,20 @@ public class TbOrderItem {
 
     private String picPath;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
-    }
-
-    public String getItemId() {
+    public Long getItemId() {
         return itemId;
     }
 
-    public void setItemId(String itemId) {
-        this.itemId = itemId == null ? null : itemId.trim();
+    public void setItemId(Long itemId) {
+        this.itemId = itemId;
     }
 
-    public String getOrderId() {
+    public Long getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId == null ? null : orderId.trim();
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
 
     public Integer getNum() {

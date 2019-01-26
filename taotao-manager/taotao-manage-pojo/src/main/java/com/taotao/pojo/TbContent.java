@@ -1,9 +1,10 @@
 package com.taotao.pojo;
 
+import com.taotao.common.pojo.BasePojo;
+
 import java.util.Date;
 
-public class TbContent {
-    private Long id;
+public class TbContent extends BasePojo {
 
     private Long categoryId;
 
@@ -19,19 +20,7 @@ public class TbContent {
 
     private String pic2;
 
-    private Date created;
-
-    private Date updated;
-
     private String content;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Long getCategoryId() {
         return categoryId;
@@ -87,22 +76,6 @@ public class TbContent {
 
     public void setPic2(String pic2) {
         this.pic2 = pic2 == null ? null : pic2.trim();
-    }
-
-    public Date getCreated() {
-        return created;
-    }
-
-    public void setCreated(Date created) {
-        this.created = created;
-    }
-
-    public Date getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(Date updated) {
-        this.updated = updated;
     }
 
     public String getContent() {

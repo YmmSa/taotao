@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.taotao.mapper.TbOrderShippingMapper" >
   <resultMap id="BaseResultMap" type="com.taotao.pojo.TbOrderShipping" >
-    <id column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="order_id" property="orderId" jdbcType="BIGINT" />
     <result column="receiver_name" property="receiverName" jdbcType="VARCHAR" />
     <result column="receiver_phone" property="receiverPhone" jdbcType="VARCHAR" />
     <result column="receiver_mobile" property="receiverMobile" jdbcType="VARCHAR" />
@@ -73,7 +74,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    order_id, receiver_name, receiver_phone, receiver_mobile, receiver_state, receiver_city, 
+    id, order_id, receiver_name, receiver_phone, receiver_mobile, receiver_state, receiver_city, 
     receiver_district, receiver_address, receiver_zip, created, updated
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.taotao.pojo.TbOrderShippingExample" >
@@ -90,15 +91,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
     from tb_order_shipping
-    where order_id = #{orderId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from tb_order_shipping
-    where order_id = #{orderId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
   </delete>
   <delete id="deleteByExample" parameterType="com.taotao.pojo.TbOrderShippingExample" >
     delete from tb_order_shipping
@@ -106,19 +107,24 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.taotao.pojo.TbOrderShipping" >
-    insert into tb_order_shipping (order_id, receiver_name, receiver_phone, 
-      receiver_mobile, receiver_state, receiver_city, 
-      receiver_district, receiver_address, receiver_zip, 
-      created, updated)
-    values (#{orderId,jdbcType=VARCHAR}, #{receiverName,jdbcType=VARCHAR}, #{receiverPhone,jdbcType=VARCHAR}, 
-      #{receiverMobile,jdbcType=VARCHAR}, #{receiverState,jdbcType=VARCHAR}, #{receiverCity,jdbcType=VARCHAR}, 
-      #{receiverDistrict,jdbcType=VARCHAR}, #{receiverAddress,jdbcType=VARCHAR}, #{receiverZip,jdbcType=VARCHAR}, 
-      #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP})
+  <insert id="insert" parameterType="com.taotao.pojo.TbOrderShipping" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    insert into tb_order_shipping (id, order_id, receiver_name, 
+      receiver_phone, receiver_mobile, receiver_state, 
+      receiver_city, receiver_district, receiver_address, 
+      receiver_zip, created, updated
+      )
+    values (#{id,jdbcType=BIGINT}, #{orderId,jdbcType=BIGINT}, #{receiverName,jdbcType=VARCHAR}, 
+      #{receiverPhone,jdbcType=VARCHAR}, #{receiverMobile,jdbcType=VARCHAR}, #{receiverState,jdbcType=VARCHAR}, 
+      #{receiverCity,jdbcType=VARCHAR}, #{receiverDistrict,jdbcType=VARCHAR}, #{receiverAddress,jdbcType=VARCHAR}, 
+      #{receiverZip,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.taotao.pojo.TbOrderShipping" >
+  <insert id="insertSelective" parameterType="com.taotao.pojo.TbOrderShipping" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
     insert into tb_order_shipping
     <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
       <if test="orderId != null" >
         order_id,
       </if>
@@ -154,8 +160,11 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
       <if test="orderId != null" >
-        #{orderId,jdbcType=VARCHAR},
+        #{orderId,jdbcType=BIGINT},
       </if>
       <if test="receiverName != null" >
         #{receiverName,jdbcType=VARCHAR},
@@ -198,8 +207,11 @@
   <update id="updateByExampleSelective" parameterType="map" >
     update tb_order_shipping
     <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
       <if test="record.orderId != null" >
-        order_id = #{record.orderId,jdbcType=VARCHAR},
+        order_id = #{record.orderId,jdbcType=BIGINT},
       </if>
       <if test="record.receiverName != null" >
         receiver_name = #{record.receiverName,jdbcType=VARCHAR},
@@ -238,7 +250,8 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update tb_order_shipping
-    set order_id = #{record.orderId,jdbcType=VARCHAR},
+    set id = #{record.id,jdbcType=BIGINT},
+      order_id = #{record.orderId,jdbcType=BIGINT},
       receiver_name = #{record.receiverName,jdbcType=VARCHAR},
       receiver_phone = #{record.receiverPhone,jdbcType=VARCHAR},
       receiver_mobile = #{record.receiverMobile,jdbcType=VARCHAR},
@@ -256,6 +269,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.taotao.pojo.TbOrderShipping" >
     update tb_order_shipping
     <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=BIGINT},
+      </if>
       <if test="receiverName != null" >
         receiver_name = #{receiverName,jdbcType=VARCHAR},
       </if>
@@ -287,11 +303,12 @@
         updated = #{updated,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where order_id = #{orderId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.taotao.pojo.TbOrderShipping" >
     update tb_order_shipping
-    set receiver_name = #{receiverName,jdbcType=VARCHAR},
+    set order_id = #{orderId,jdbcType=BIGINT},
+      receiver_name = #{receiverName,jdbcType=VARCHAR},
       receiver_phone = #{receiverPhone,jdbcType=VARCHAR},
       receiver_mobile = #{receiverMobile,jdbcType=VARCHAR},
       receiver_state = #{receiverState,jdbcType=VARCHAR},
@@ -301,6 +318,6 @@
       receiver_zip = #{receiverZip,jdbcType=VARCHAR},
       created = #{created,jdbcType=TIMESTAMP},
       updated = #{updated,jdbcType=TIMESTAMP}
-    where order_id = #{orderId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

@@ -105,7 +105,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.taotao.pojo.TbItem" >
+  <insert id="insert" parameterType="com.taotao.pojo.TbItem" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
     insert into tb_item (id, title, sell_point, 
       price, num, barcode, 
       image, cid, status, 
@@ -115,7 +115,7 @@
       #{image,jdbcType=VARCHAR}, #{cid,jdbcType=BIGINT}, #{status,jdbcType=TINYINT}, 
       #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.taotao.pojo.TbItem" >
+  <insert id="insertSelective" parameterType="com.taotao.pojo.TbItem"  useGeneratedKeys="true" keyProperty="id" keyColumn="id">
     insert into tb_item
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

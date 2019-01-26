@@ -1,9 +1,10 @@
 package com.taotao.pojo;
 
+import com.taotao.common.pojo.BasePojo;
+
 import java.util.Date;
 
-public class TbOrder {
-    private String orderId;
+public class TbOrder extends BasePojo {
 
     private String payment;
 
@@ -12,10 +13,6 @@ public class TbOrder {
     private String postFee;
 
     private Integer status;
-
-    private Date createTime;
-
-    private Date updateTime;
 
     private Date paymentTime;
 
@@ -36,14 +33,6 @@ public class TbOrder {
     private String buyerNick;
 
     private Integer buyerRate;
-
-    public String getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(String orderId) {
-        this.orderId = orderId == null ? null : orderId.trim();
-    }
 
     public String getPayment() {
         return payment;
@@ -75,22 +64,6 @@ public class TbOrder {
 
     public void setStatus(Integer status) {
         this.status = status;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
     }
 
     public Date getPaymentTime() {
