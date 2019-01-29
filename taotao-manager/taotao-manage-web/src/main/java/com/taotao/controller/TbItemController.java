@@ -29,7 +29,7 @@ public class TbItemController {
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
     //EasyUIDataGrid传的参数是用?&跟在url后的，@RequestBody是用来处理json字符串的，不能加
-    public PageResult<TbItem> getItemById(TbItemQuery query){
+    public PageResult<TbItem> list(TbItemQuery query){
         return itemService.findPage(query);
     }
 

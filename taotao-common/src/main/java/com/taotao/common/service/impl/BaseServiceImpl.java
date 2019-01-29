@@ -1,12 +1,15 @@
 package com.taotao.common.service.impl;
 
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.taotao.common.mapper.BaseMapper;
 import com.taotao.common.pojo.BasePojo;
 import com.taotao.common.pojo.BaseQuery;
 import com.taotao.common.pojo.PageResult;
 import com.taotao.common.service.BaseService;
 import com.taotao.common.utils.DateUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
@@ -21,7 +24,7 @@ import java.util.List;
  * @Date: 2019/1/12 22:05
  * @Description:
  */
-public class BaseServiceImpl<M extends BaseMapper<T>, T extends BasePojo> implements BaseService<T> {
+public class BaseServiceImpl<M extends BaseMapper<T>, T extends BasePojo, Q extends BaseQuery> implements BaseService<T> {
 
     @Autowired
     ApplicationContext applicationContext;
@@ -86,5 +89,24 @@ public class BaseServiceImpl<M extends BaseMapper<T>, T extends BasePojo> implem
         record.setUpdated(DateUtil.getNowDate(DateUtil.DATETIME_FORMAT));
     }
 
+    public void setPageQuery(Q query){
+        if(query.getPage() != null && query.getRows() != null) {
+            PageHelper.startPage(query.getPage(), query.getRows());
+        }
+        else {
+            PageHelper.startPage(1, 30);
+        }
+        if(StringUtils.isBlank(query.getOrderField())){
+            query.setOrderField("updated DESC");
+        }
+    }
+
+    public PageResult<T> returnPageResult(List<T> lists){
+        PageInfo<T> pageInfo = new PageInfo<>(lists);
+        PageResult<T> pageResult = new PageResult<>();
+        pageResult.setTotal(pageInfo.getTotal());
+        pageResult.setRows(pageInfo.getList());
+        return pageResult;
+    }
 
 }

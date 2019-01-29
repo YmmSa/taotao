@@ -25,31 +25,19 @@ import java.util.List;
  * @Description:
  */
 @Service
-public class TbItemServiceImpl extends BaseServiceImpl<TbItemMapper, TbItem> implements TbItemService {
+public class TbItemServiceImpl extends BaseServiceImpl<TbItemMapper, TbItem, TbItemQuery> implements TbItemService {
 
     @Autowired
     private TbItemDescService itemDescService;
 
     @Override
     public PageResult<TbItem> findPage(TbItemQuery query) {
-        if(query.getPage() != null && query.getRows() != null) {
-            PageHelper.startPage(query.getPage(), query.getRows());
-        }
-        else {
-            PageHelper.startPage(1, 30);
-        }
-        if(StringUtils.isBlank(query.getOrderField())){
-            query.setOrderField("updated DESC");
-        }
+        setPageQuery(query);
         TbItemExample example = new TbItemExample();
         query.setQueryCondition(example);
 
         List<TbItem> itemList = mapper.selectByExample(example);
-        PageInfo<TbItem> pageInfo = new PageInfo<>(itemList);
-        PageResult<TbItem> pageResult = new PageResult<>();
-        pageResult.setTotal(pageInfo.getTotal());
-        pageResult.setRows(pageInfo.getList());
-        return pageResult;
+        return returnPageResult(itemList);
     }
 
     @Override
@@ -58,12 +46,12 @@ public class TbItemServiceImpl extends BaseServiceImpl<TbItemMapper, TbItem> imp
         long id = this.insertSelective(item);
 
         //插入商品描述
-        insertItemDesc(id, desc);
+        createItemDesc(id, desc);
         
         return TaotaoResult.ok();
     }
 
-    private void insertItemDesc(Long itemId, String desc){
+    private void createItemDesc(Long itemId, String desc){
         TbItemDesc itemDesc = new TbItemDesc();
         itemDesc.setItemId(itemId);
         itemDesc.setItemDesc(desc);

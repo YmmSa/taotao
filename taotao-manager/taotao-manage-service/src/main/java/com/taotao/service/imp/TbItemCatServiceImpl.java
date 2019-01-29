@@ -4,6 +4,7 @@ import com.taotao.common.service.impl.BaseServiceImpl;
 import com.taotao.mapper.TbItemCatMapper;
 import com.taotao.pojo.TbItemCat;
 import com.taotao.pojo.TbItemCatExample;
+import com.taotao.query.TbItemCatQuery;
 import com.taotao.service.TbItemCatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,7 @@ import java.util.List;
  * @Description:
  */
 @Service
-public class TbItemCatServiceImpl extends BaseServiceImpl<TbItemCatMapper, TbItemCat> implements TbItemCatService {
+public class TbItemCatServiceImpl extends BaseServiceImpl<TbItemCatMapper, TbItemCat, TbItemCatQuery> implements TbItemCatService {
 
     @Override
     public List<TbItemCat> getItemCatList(Long parentId) {

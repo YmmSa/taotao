@@ -3,6 +3,7 @@ package com.taotao.service.imp;
 import com.taotao.common.service.impl.BaseServiceImpl;
 import com.taotao.mapper.TbItemDescMapper;
 import com.taotao.pojo.TbItemDesc;
+import com.taotao.query.TbItemDescQuery;
 import com.taotao.service.TbItemDescService;
 import org.springframework.stereotype.Service;
 
@@ -12,5 +13,5 @@ import org.springframework.stereotype.Service;
  * @Description:
  */
 @Service
-public class TbItemDescServiceImpl extends BaseServiceImpl<TbItemDescMapper, TbItemDesc> implements TbItemDescService {
+public class TbItemDescServiceImpl extends BaseServiceImpl<TbItemDescMapper, TbItemDesc, TbItemDescQuery> implements TbItemDescService {
 }
