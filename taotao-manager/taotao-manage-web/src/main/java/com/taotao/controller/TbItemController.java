@@ -40,19 +40,7 @@ public class TbItemController {
      */
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
-    public TaotaoResult save(TbItem item, String desc){
-        return itemService.createTbItem(item, desc);
+    public TaotaoResult save(TbItem item, String desc, String itemParams){
+        return itemService.createTbItem(item, desc, itemParams);
     }
-
-//    /**
-//     * 修改商品
-//     * @param item
-//     * @return
-//     */
-//    @RequestMapping(value = "/edit", method = RequestMethod.POST)
-//    @ResponseBody
-//    public TaotaoResult edit(TbItem item){
-//        return "item-edit";
-//    }
-
 }

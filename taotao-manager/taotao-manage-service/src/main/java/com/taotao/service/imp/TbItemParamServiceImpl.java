@@ -28,7 +28,7 @@ public class TbItemParamServiceImpl extends BaseServiceImpl<TbItemParamMapper, T
         TbItemParamExample example = new TbItemParamExample();
         query.setQueryCondition(example);
 
-        List<TbItemParam> itemParamList = mapper.selectByExample(example);
+        List<TbItemParam> itemParamList = mapper.selectByExampleWithBLOBs(example);
         return returnPageResult(itemParamList);
     }
 
@@ -42,7 +42,7 @@ public class TbItemParamServiceImpl extends BaseServiceImpl<TbItemParamMapper, T
         TbItemParamExample example = new TbItemParamExample();
         TbItemParamExample.Criteria criteria = example.createCriteria();
         criteria.andItemCatIdEqualTo(itemCatId);
-        List<TbItemParam> itemParamList = mapper.selectByExample(example);
+        List<TbItemParam> itemParamList = mapper.selectByExampleWithBLOBs(example);
         if(itemParamList == null || itemParamList.size() == 0){
             return TaotaoResult.ok();
         }

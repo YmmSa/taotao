@@ -10,8 +10,10 @@ import com.taotao.mapper.TbItemMapper;
 import com.taotao.pojo.TbItem;
 import com.taotao.pojo.TbItemDesc;
 import com.taotao.pojo.TbItemExample;
+import com.taotao.pojo.TbItemParamItem;
 import com.taotao.query.TbItemQuery;
 import com.taotao.service.TbItemDescService;
+import com.taotao.service.TbItemParamItemService;
 import com.taotao.service.TbItemService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,9 @@ public class TbItemServiceImpl extends BaseServiceImpl<TbItemMapper, TbItem, TbI
     @Autowired
     private TbItemDescService itemDescService;
 
+    @Autowired
+    private TbItemParamItemService itemParamItemService;
+
     @Override
     public PageResult<TbItem> findPage(TbItemQuery query) {
         setPageQuery(query);
@@ -41,12 +46,15 @@ public class TbItemServiceImpl extends BaseServiceImpl<TbItemMapper, TbItem, TbI
     }
 
     @Override
-    public TaotaoResult createTbItem(TbItem item, String desc) {
+    public TaotaoResult createTbItem(TbItem item, String desc, String itemParams) {
         item.setStatus(ITEM_STATUS.NORMAL.getValue());
         long id = this.insertSelective(item);
 
         //插入商品描述
         createItemDesc(id, desc);
+
+        //插入商品规格
+        createItemParamItem(id, itemParams);
         
         return TaotaoResult.ok();
     }
@@ -56,5 +64,12 @@ public class TbItemServiceImpl extends BaseServiceImpl<TbItemMapper, TbItem, TbI
         itemDesc.setItemId(itemId);
         itemDesc.setItemDesc(desc);
         itemDescService.insertSelective(itemDesc);
+    }
+
+    private void createItemParamItem(Long itemId, String paramData){
+        TbItemParamItem itemParamItem = new TbItemParamItem();
+        itemParamItem.setItemId(itemId);
+        itemParamItem.setParamData(paramData);
+        itemParamItemService.insertSelective(itemParamItem);
     }
 }

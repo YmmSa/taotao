@@ -15,5 +15,5 @@ import org.apache.commons.lang3.StringUtils;
 public interface TbItemService extends BaseService<TbItem> {
     public PageResult<TbItem> findPage(TbItemQuery query);
 
-    public TaotaoResult createTbItem(TbItem item, String desc);
+    public TaotaoResult createTbItem(TbItem item, String desc, String itemParams);
 }
